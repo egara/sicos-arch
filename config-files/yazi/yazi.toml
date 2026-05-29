@@ -1,0 +1,95 @@
+[[open.rules]]
+mime = "text/*"
+use = "edit"
+
+[[open.rules]]
+mime = "video/*"
+use = "video"
+
+[[open.rules]]
+mime = "application/json"
+use = "edit"
+
+[[open.rules]]
+mime = "application/pdf"
+use = ["pdf", "firefox"]
+
+[[open.rules]]
+mime = "audio/aac"
+use = "play"
+
+[[open.rules]]
+mime = "audio/midi"
+use = "play"
+
+[[open.rules]]
+mime = "audio/x-midi"
+use = "play"
+
+[[open.rules]]
+mime = "audio/mpeg"
+use = "play"
+
+[[open.rules]]
+mime = "audio/ogg"
+use = "play"
+
+[[open.rules]]
+mime = "audio/wav"
+use = "play"
+
+[[open.rules]]
+mime = "audio/webm"
+use = "play"
+
+[[open.rules]]
+mime = "audio/3gpp"
+use = "play"
+
+[[open.rules]]
+mime = "image/jpeg"
+use = "image"
+
+[[open.rules]]
+mime = "image/png"
+use = "image"
+
+[[open.rules]]
+mime = "*"
+use = "open"
+
+[[opener.edit]]
+for = "unix"
+orphan = true
+run = "zeditor \"$@\""
+
+[[opener.firefox]]
+for = "unix"
+orphan = true
+run = "firefox \"$@\""
+
+[[opener.image]]
+for = "unix"
+orphan = true
+run = "feh \"$@\""
+
+[[opener.open]]
+desc = "Open"
+for = "unix"
+orphan = true
+run = "xdg-open \"$@\""
+
+[[opener.pdf]]
+for = "unix"
+orphan = true
+run = "okular \"$@\""
+
+[[opener.play]]
+for = "unix"
+orphan = true
+run = "qmmp \"$@\""
+
+[[opener.video]]
+for = "unix"
+orphan = true
+run = "vlc \"$@\""

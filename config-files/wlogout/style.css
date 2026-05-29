@@ -1,0 +1,78 @@
+* {
+    background-image: none;
+    box-shadow: none;
+    font-family: "JetBrainsMono Nerd Font Mono";
+}
+
+window {
+    background-color: transparent;
+}
+
+button {
+    color: #cdd6f4;
+    background-color: alpha(#313244, 0.7);
+    outline-style: none;
+    border: none;
+    border-width: 0px;
+    background-repeat: no-repeat;
+    background-position: center 35%;
+    background-size: 40%;
+    border-radius: 0px;
+    margin: 200px 0px 200px 0px;
+    font-size: 10pt;
+    padding-top: 120px;
+    
+    /* Smooth return transition without overshoot */
+    transition: all 0.2s ease-in-out;
+}
+
+button:focus, button:hover {
+    background-color: #89b4fa;
+    border-radius: 40px;
+    color: #1e1e2e;
+    
+    /* Elastic entry transition (HyDE style) */
+    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+}
+
+button:focus {
+    background-size: 50%;
+}
+
+button:hover {
+    background-size: 55%;
+}
+
+/* Specific styling for endpoints of the row */
+#shutdown {
+    border-radius: 20px 0px 0px 20px;
+    margin-left: 100px;
+}
+
+#suspend {
+    border-radius: 0px 20px 20px 0px;
+    margin-right: 100px;
+}
+
+/* Hover Margins for lifting effect */
+button:hover#shutdown {
+    margin: 180px 0px 180px 100px;
+}
+
+button:hover#logout,
+button:hover#reboot,
+button:hover#lock,
+button:hover#hibernate {
+    margin: 180px 0px 180px 0px;
+}
+
+button:hover#suspend {
+    margin: 180px 100px 180px 0px;
+}
+
+#lock { background-image: image(url("./icons/lock.png")); }
+#logout { background-image: image(url("./icons/logout.png")); }
+#suspend { background-image: image(url("./icons/suspend.png")); }
+#hibernate { background-image: image(url("./icons/hibernate.png")); }
+#shutdown { background-image: image(url("./icons/shutdown.png")); }
+#reboot { background-image: image(url("./icons/reboot.png")); }
