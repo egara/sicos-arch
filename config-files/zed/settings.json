@@ -1,0 +1,145 @@
+{
+  "cli_default_open_behavior": "existing_window",
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+    "inline_assistant_model": {
+      "provider": "lmstudio",
+      "model": "qwen/qwen3.5-9b",
+      "enable_thinking": false
+    },
+    "default_model": {
+      "provider": "FastFlowLM",
+      "model": "gpt-oss-sg:20b",
+      "enable_thinking": false
+    },
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "language_models": {
+    "lmstudio": {
+      "api_url": "http://localhost:1234/api/v0/"
+    },
+    "openai_compatible": {
+      "FastFlowLM": {
+        "api_url": "http://localhost:52625/v1",
+        "available_models": [
+          {
+            "capabilities": {
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "display_name": "qwen3.5:4b",
+            "max_tokens": 32768,
+            "name": "qwen3.5:4b"
+          },
+          {
+            "capabilities": {
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "display_name": "qwen3.5:9b",
+            "max_tokens": 16384,
+            "name": "qwen3.5:9b"
+          },
+          {
+            "capabilities": {
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false,
+              "tools": false
+            },
+            "display_name": "gpt-oss-sg:20b",
+            "max_tokens": 24576,
+            "name": "gpt-oss-sg:20b"
+          }
+        ]
+      }
+    }
+  },
+  "agent_servers": {
+    "gemini": {
+      "type": "registry"
+    }
+  },
+  "restore_on_startup": "last_workspace",
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false
+  },
+  "base_keymap": "SublimeText",
+  "icon_theme": "Zed (Default)",
+  "auto_install_extensions": {
+    "html": true,
+    "java": true,
+    "javascript-snippets": true,
+    "nix": true,
+    "toml": true,
+    "yaml": true,
+    "basher": true,
+    "css-modules-kit": true,
+    "css-variables": true,
+    "csv": true,
+    "markdown-oxide": true,
+    "markdownlint": true,
+    "pylsp": true,
+    "python-language-server": true,
+    "python-refactoring": true,
+    "python-requirements": true,
+    "python-snippets": true,
+    "docker-compose": true,
+    "dockerfile": true
+  },
+  "terminal": {
+    "detect_venv": {
+      "on": {
+        "directories": [
+          ".env",
+          "env",
+          ".venv",
+          "venv"
+        ],
+        "activate_script": "default"
+      }
+    }
+  },
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_size": 13.333333333333334,
+  "hour_format": "hour24",
+  "theme": "Base16 Tokyo City Dark",
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  "ui_font_size": 13.333333333333334,
+  "vim_mode": false,
+  "languages": {
+    "Markdown": {
+      "soft_wrap": "preferred_line_length"
+    }
+  },
+  "preferred_line_length": 160,
+  "project_panel": {
+    "dock": "left",
+    "indent_size": 16
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "preview_tabs": {
+    "enabled": false
+  }
+}

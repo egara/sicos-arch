@@ -114,7 +114,8 @@ PACKAGES=(
     telegram-desktop
     insync
     yazi
-    # Docker (Matches Arch documentation)
+    zed
+    # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
     qt6-declarative qt6-svg qt6-5compat
@@ -174,6 +175,9 @@ cp "$REPO_ROOT/config-files/wlogout/icons/"* "$USER_HOME/.config/wlogout/icons/"
 
 # Elephant
 cp -r "$REPO_ROOT/config-files/elephant/"* "$USER_HOME/.config/elephant/"
+
+# Zed editor
+cp -r "$REPO_ROOT/config-files/zed/"* "$USER_HOME/.config/zed/"
 
 # Yazi
 ya pkg add yazi-rs/plugins:smart-enter
