@@ -81,7 +81,7 @@ PACKAGES=(
     slurp
     vlc
     chromium
-    okular
+    papers
     yay
     yadm
     ripgrep
@@ -103,6 +103,17 @@ PACKAGES=(
     noto-fonts-emoji
     noto-fonts-cjk
     nerd-fonts
+    # Audio
+    carla
+    jack_mixer
+    audacity
+    audacious
+    mixxx
+    spotify
+    # AI
+    opencode
+    antigravity-cli
+    lmstudio-bin
     # Other
     terminaltexteffects-git
     libqalculate
@@ -115,6 +126,9 @@ PACKAGES=(
     insync
     yazi
     zed
+    lazyssh-bin
+    buttermanager
+    wallpaperdownloader
     # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
@@ -131,6 +145,7 @@ mkdir -p "$HYPR_CONF_DIR"
 mkdir -p "$USER_HOME/.config/waybar"
 mkdir -p "$USER_HOME/.config/swaync"
 mkdir -p "$USER_HOME/.config/walker"
+mkdir -p "$USER_HOME/.config/zed"
 mkdir -p "$USER_HOME/.config/wlogout/icons"
 mkdir -p "$USER_HOME/.config/elephant"
 mkdir -p "$USER_HOME/.config/kitty"
