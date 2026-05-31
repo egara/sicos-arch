@@ -52,7 +52,6 @@ PACKAGES=(
     walker
     elephant-all
     uwsm
-    hyprnome
     swww
     sqlite
     # File Manager & Tools
@@ -105,15 +104,20 @@ PACKAGES=(
     nerd-fonts
     # Audio
     carla
+    calf
     jack_mixer
     audacity
     audacious
     mixxx
     spotify
+    pipewire-jack
     # AI
     opencode
     antigravity-cli
     lmstudio-bin
+    # K8s
+    kubectl
+    kubie
     # Other
     terminaltexteffects-git
     libqalculate
@@ -130,6 +134,7 @@ PACKAGES=(
     buttermanager
     wallpaperdownloader
     cheatsheet-git
+    libreoffice-fresh
     # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
