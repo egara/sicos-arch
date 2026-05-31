@@ -129,6 +129,7 @@ PACKAGES=(
     lazyssh-bin
     buttermanager
     wallpaperdownloader
+    cheatsheet-git
     # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
