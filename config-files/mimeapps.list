@@ -1,0 +1,25 @@
+[Added Associations]
+
+[Default Applications]
+application/javascript=dev.zed.Zed.desktop
+application/json=dev.zed.Zed.desktop
+application/pdf=org.gnome.Papers.desktop
+application/x-pdf=org.gnome.Papers.desktop
+application/x-yaml=dev.zed.Zed.desktop
+audio/mpeg=qmmp.desktop
+image/jpeg=feh.desktop
+image/png=feh.desktop
+inode/directory=thunar.desktop
+text/css=dev.zed.Zed.desktop
+text/markdown=dev.zed.Zed.desktop
+text/plain=dev.zed.Zed.desktop
+text/x-nix=dev.zed.Zed.desktop
+video/mp4=vlc.desktop
+video/webm=vlc.desktop
+video/x-matroska=vlc.desktop
+x-scheme-handler/file=thunar.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-terminal-emulator=kitty.desktop
+
+[Removed Associations]

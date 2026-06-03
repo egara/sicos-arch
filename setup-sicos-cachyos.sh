@@ -107,7 +107,7 @@ PACKAGES=(
     calf
     jack_mixer
     audacity
-    audacious
+    qmmp
     mixxx
     spotify
     pipewire-jack
@@ -160,6 +160,7 @@ mkdir -p "$USER_HOME/.config/gtk-4.0"
 mkdir -p "$USER_HOME/.config/qt5ct"
 mkdir -p "$USER_HOME/.config/qt6ct"
 mkdir -p "$USER_HOME/.config/Kvantum"
+mkdir -p "$USER_HOME/.config/qmmp"
 mkdir -p "$SICOS_CONF_DIR/scripts"
 mkdir -p "$SICOS_CONF_DIR/wallpapers"
 mkdir -p "$SICOS_CONF_DIR/themes"
@@ -199,6 +200,12 @@ cp -r "$REPO_ROOT/config-files/elephant/"* "$USER_HOME/.config/elephant/"
 
 # Zed editor
 cp -r "$REPO_ROOT/config-files/zed/"* "$USER_HOME/.config/zed/"
+
+# Qmmp
+cp -r "$REPO_ROOT/config-files/qmmp/"* "$USER_HOME/.config/qmmp/"
+
+# mimeapps list
+cp -r "$REPO_ROOT/config-files/mimeapps.list"* "$USER_HOME/.config/mimeapps.list"
 
 # Yazi
 ya pkg add yazi-rs/plugins:smart-enter
