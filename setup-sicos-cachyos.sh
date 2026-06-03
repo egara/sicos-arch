@@ -170,7 +170,7 @@ mkdir -p "$SICOS_CONF_DIR/screensaver"
 echo "[3/7] Copying configuration files..."
 
 # Hyprland & core configs
-cp "$REPO_ROOT/config-files/hyprland.conf" "$HYPR_CONF_DIR/"
+cp "$REPO_ROOT/config-files/hyprland.lua" "$HYPR_CONF_DIR/"
 cp "$REPO_ROOT/config-files/hyprlock.conf" "$HYPR_CONF_DIR/"
 cp "$REPO_ROOT/config-files/hypridle.conf" "$HYPR_CONF_DIR/"
 cp "$REPO_ROOT/config-files/pop-sound.mp3" "$HYPR_CONF_DIR/"
