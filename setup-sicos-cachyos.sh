@@ -394,6 +394,12 @@ sudo systemctl enable sddm || true
 swww-daemon & sleep 1
 swww img "$SICOS_CONF_DIR/wallpapers/sicos-dark.jpg" || true
 
+# Setting the default audio card
+wpctl status
+wpctl set-default 169
+
+echo "The default audio card is the sink with ID = 169. Please, modify it if it is another one"
+
 echo ""
 echo "--------------------------------------------------"
 echo " SicOS Setup Complete!"
