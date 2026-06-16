@@ -135,6 +135,7 @@ PACKAGES=(
     wallpaperdownloader
     cheatsheet-git
     libreoffice-fresh
+    unarchiver
     # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
@@ -208,8 +209,9 @@ cp -r "$REPO_ROOT/config-files/qmmp/"* "$USER_HOME/.config/qmmp/"
 cp -r "$REPO_ROOT/config-files/mimeapps.list"* "$USER_HOME/.config/mimeapps.list"
 
 # Yazi
-ya pkg add yazi-rs/plugins:smart-enter
+ya pkg add jaam8/wise-enter
 ya pkg add yazi-rs/plugins:mount
+
 cp -r "$REPO_ROOT/config-files/yazi/"* "$USER_HOME/.config/yazi/"
 
 # Scripts
