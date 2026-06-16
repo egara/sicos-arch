@@ -17,8 +17,14 @@
 -- Execute your favorite apps at launch
 
 hl.on("hyprland.start", function ()
+    -- Finalize UWSM startup to export WAYLAND_DISPLAY and other critical variables
+    hl.exec_cmd("uwsm finalize")
+
     -- Initial brightness at 55%
     hl.exec_cmd("uwsm app -- brightnessctl s 55%")
+
+    -- Kanshi (Multi monitor layout manager)
+    hl.exec_cmd("uwsm app -- kanshi")
 
     -- Screensaver (IDLE)
     hl.exec_cmd("systemctl --user enable --now hypridle.service")
@@ -34,8 +40,8 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("uwsm app -- waybar")
 
     -- Walker & Elephant
-    hl.exec_cmd("uwsm app -- walker --gapplication-service")
-    hl.exec_cmd("uwsm app -- elephant")
+    hl.exec_cmd("walker --gapplication-service")
+    hl.exec_cmd("elephant")
 
     -- Notifications
     -- hl.exec_cmd("uwsm app -- dunst")
@@ -77,20 +83,7 @@ end)
 -- ###############################
 
 -- Environment variables
-hl.env("XCURSOR_SIZE", "24")
-hl.env("GDK_BACKEND", "wayland")
--- It seems with stylix, GTK_THEME env variable is not needed anymore
--- hl.env("GTK_THEME", "Catppuccin-Macchiato-Compact-Pink-Dark")
--- hl.env("GTK_THEME", "Adwaita-dark")
--- hl.env("GTK_THEME", "Adwaita")
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
-hl.env("XDG_SESSION_TYPE", "wayland")
-hl.env("XDG_SESSION_DESKTOP", "Hyprland")
-hl.env("TERMINAL", "kitty")
-
--- hl.env("QT_QPA_PLATFORMTHEME", "qt5ct") -- change to qt6ct if you have that
--- hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
--- hl.env("QT_QPA_PLATFORM", "wayland")
+-- (Moved to ~/.config/uwsm/env as per UWSM best practices)
 
 -- ################################
 -- Environment variables - FINISH
@@ -123,13 +116,14 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager), { des
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }), { description = "Toggle Floating Window" })
 hl.bind(mainMod .. " + KP_Multiply", hl.dsp.window.pseudo(), { description = "Reduce/Enlarge Current Window" })
 hl.bind(mainMod .. " + KP_Divide", hl.dsp.layout("togglesplit"), { description = "Change Layout" })
-hl.bind(mainMod .. " + SPACE", hl.dsp.layout("movetoroot"), { description = "Move current window to root" })
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("uwsm app -- " .. browser), { description = "Firefox" })
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("uwsm app -- " .. browser .. " --private-window"), { description = "Firefox (Private Window)" })
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("uwsm app -- " .. webapp .. "='https://gemini.google.com/'"), { description = "Gemini" })
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.config/sicos/scripts/sicos-settings.sh"), { description = "SicOS settings menu" })
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("uwsm app -- " .. terminal .. " --override term=xterm-256color -e lazyssh"), { description = "Lazyssh" })
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("uwsm app -- " .. menu), { description = "App Launcher (Walker)" })
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(menu), { description = "App Launcher (Walker)" })
+-- hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu), { description = "App Launcher (Walker)" })
+-- hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("pkill fuzzel || fuzzel"), { description = "App Launcher (Fuzzel)" })
 -- hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("pgrep -x .wofi-wrapped >/dev/null 2>&1 && killall .wofi-wrapped || " .. menu), { description = "App Launcher (Wofi)" })
 hl.bind(mainMod .. " + CTRL + Up", hl.dsp.window.fullscreen({ mode = "fullscreen" }), { description = "Maximize Window (Toggling)" })
 -- hl.bind(mainMod .. " + KP_Subtract", hl.dsp.exec_cmd("dunstctl history-pop"), { description = "Notifications History" })
