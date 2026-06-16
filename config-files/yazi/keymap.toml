@@ -66,9 +66,9 @@ on = "<S-f>"
 run = "search --via=rg"
 
 [[mgr.prepend_keymap]]
-desc = "Enter the child directory, or open the file"
+desc = "Enter the child directory, open the file or uncompress"
 on = "<Enter>"
-run = "plugin smart-enter"
+run = "plugin wise-enter"
 
 [[mgr.prepend_keymap]]
 desc = "Move to trash"
