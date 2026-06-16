@@ -136,6 +136,7 @@ PACKAGES=(
     cheatsheet-git
     libreoffice-fresh
     unarchiver
+    7-zip
     # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
