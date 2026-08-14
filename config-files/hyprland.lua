@@ -23,6 +23,9 @@ hl.on("hyprland.start", function ()
     -- Initial brightness at 55%
     hl.exec_cmd("uwsm app -- brightnessctl s 55%")
 
+    -- Kanshi (Multi monitor layout manager)
+    hl.exec_cmd("uwsm app -- kanshi")
+
     -- Screensaver (IDLE)
     hl.exec_cmd("systemctl --user enable --now hypridle.service")
     -- hl.exec_cmd("swayidle -w timeout 300 '$lock' timeout 300 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep '$lock'")
@@ -33,16 +36,12 @@ hl.on("hyprland.start", function ()
     -- Networking
     hl.exec_cmd("uwsm app -- nm-applet --indicator")
 
-    -- Waybar
-    hl.exec_cmd("uwsm app -- waybar")
+    -- Shell (waybar+swaync or dank-material-shell)
+    hl.exec_cmd("uwsm app -- ~/.config/sicos/scripts/start-shell.sh")
 
     -- Walker & Elephant
     hl.exec_cmd("walker --gapplication-service")
     hl.exec_cmd("elephant")
-
-    -- Notifications
-    -- hl.exec_cmd("uwsm app -- dunst")
-    hl.exec_cmd("uwsm app -- swaync")
 
     -- Clipboard
     -- hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist store")
@@ -50,13 +49,13 @@ hl.on("hyprland.start", function ()
 
     -- Applications
     hl.exec_cmd("uwsm app -- Telegram -startintray")
-    hl.exec_cmd("uwsm app -- insync start")
+    hl.exec_cmd("bash -c 'sleep 3 && uwsm app -- insync start'")
 
     -- Polkit
-    hl.exec_cmd("uwsm app -- lxqt-policykit-agent")
+    hl.exec_cmd("uwsm app -- polkit-gnome-authentication-agent-1")
 
     -- USB mounting daemon
-    hl.exec_cmd("uwsm app -- udiskie -f thunar -t")
+    hl.exec_cmd("uwsm app -- udiskie -f nautilus -t")
 
     -- Welcome animation
     hl.exec_cmd("uwsm app -- kitty --class welcome-terminal -o window_padding_width=30 -e ~/.config/sicos/scripts/welcome-animation.sh")
@@ -93,7 +92,7 @@ end)
 -- Set programs that I use
 local lock = "hyprlock"
 local terminal = "kitty"
-local fileManager = "thunar"
+local fileManager = "nautilus"
 -- local menu = "wofi --show drun"
 local menu = "walker"
 local browser = "firefox"
@@ -109,7 +108,7 @@ hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("uwsm app -- " .. terminal .. " yazi"
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("uwsm app -- zeditor"), { description = "Text Editor" })
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { description = "Close Window" })
 hl.bind("CTRL + ALT + Delete", hl.dsp.exit(), { description = "Exit" })
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager), { description = "File Manager (Thunar)" })
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager), { description = "File Manager (Nautilus)" })
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }), { description = "Toggle Floating Window" })
 hl.bind(mainMod .. " + KP_Multiply", hl.dsp.window.pseudo(), { description = "Reduce/Enlarge Current Window" })
 hl.bind(mainMod .. " + KP_Divide", hl.dsp.layout("togglesplit"), { description = "Change Layout" })
@@ -159,8 +158,8 @@ end, { description = "Enable Monocle Layout" })
 -- hl.bind(", XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && if [ '$(pamixer --get-mute)' == 'true' ]; then dunstify -a '-- Changing volume --' -u low -r 9993 'Volume Muted'; else dunstify -a '-- Changing volume --' -u low -r 9993 'Volume Unmuted'; fi"))
 
 -- New configuration with swaync
-hl.bind("xf86audioraisevolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && notify-send -u low -t 5000 -h string:synchronous:volume -h int:value:$(pamixer --get-volume) -h string:x-canonical-private-synchronous:script 'Volume' && cvlc --no-video --play-and-exit ~/.config/hypr/pop-sound.mp3"))
-hl.bind("xf86audiolowervolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && notify-send -u low -t 5000 -h string:synchronous:volume -h int:value:$(pamixer --get-volume) -h string:x-canonical-private-synchronous:script 'Volume' && cvlc --no-video --play-and-exit ~/.config/hypr/pop-sound.mp3"))
+hl.bind("xf86audioraisevolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && notify-send -u low -t 5000 -h string:synchronous:volume -h int:value:$(pamixer --get-volume) -h string:x-canonical-private-synchronous:script 'Volume' && pw-play ~/.config/hypr/pop-sound.mp3"))
+hl.bind("xf86audiolowervolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && notify-send -u low -t 5000 -h string:synchronous:volume -h int:value:$(pamixer --get-volume) -h string:x-canonical-private-synchronous:script 'Volume' && pw-play ~/.config/hypr/pop-sound.mp3"))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && if [ '$(pamixer --get-mute)' == 'true' ]; then notify-send -u low -r 9993 'Volume' 'Volume Muted'; else notify-send -u low -r 9993 'Volume' 'Volume unmuted'; fi"))
 
 -- Screen brighness
@@ -177,7 +176,9 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%- && notify-
 hl.bind(mainMod .. " + 1", hl.dsp.exec_cmd("awww img /home/egarcia/Insync/eloy.garcia.pca@gmail.com/Google\\ Drive/Wallpapers/$(ls /home/egarcia/Insync/eloy.garcia.pca@gmail.com/Google\\ Drive/Wallpapers | shuf -n 1)"), { description = "Change Wallpaper (Random)" })
 
 -- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("notify-send -t 2500 -u low -r 9993 'Screenshot' 'Select the region you want' && hyprshot -m region --raw | satty --filename - --early-exit --copy-command wl-copy --initial-tool arrow --output-filename ~/Pictures/screenshot-$(date '+%Y%m%d-%H:%M:%S').png"), { description = "Take a region screenshot and edit it" })
+-- hl.bind("Print", hl.dsp.exec_cmd("notify-send -t 2500 -u low -r 9993 'Screenshot' 'Select the region you want' && hyprshot -m region --raw | satty --filename - --early-exit --notification-thumbnail app-icon --copy-command wl-copy --initial-tool arrow --output-filename ~/Pictures/screenshot-$(date '+%Y%m%d-%H:%M:%S').png"), { description = "Take a region screenshot and edit it" })
+-- Testing new satty option "--notification-thumbnail screenshot" to dislpay a thumbnail of the screenshot but it doesn't work
+hl.bind("Print", hl.dsp.exec_cmd("notify-send -t 2500 -u low -r 9993 'Screenshot' 'Select the region you want' && hyprshot -m region --raw | satty --filename - --early-exit --notification-thumbnail screenshot --copy-command wl-copy --initial-tool arrow --output-filename ~/Pictures/screenshot-$(date '+%Y%m%d-%H:%M:%S').png"), { description = "Take a region screenshot and edit it" })
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"), { description = "Take a screenshot and copy it to the clipboard" })
 
 -- Lock screen manually
@@ -367,6 +368,7 @@ hl.window_rule({
     suppress_event = "maximize",
 })
 
+
 -- Focus on activate any window
 hl.window_rule({
     match = { class = ".*" },
@@ -374,7 +376,7 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    match = { class = "^(kitty|thunar)$" },
+    match = { class = "^(kitty|org.gnome.Nautilus)$" },
     opacity = "0.9 0.8",
 })
 
@@ -445,6 +447,12 @@ hl.layer_rule({
 hl.layer_rule({
     match = { namespace = "selection" },
     no_anim = true,
+})
+
+-- Fix DMS native tray menus
+hl.layer_rule({
+    match = { namespace = "^dms:.*" },
+    animation = "fade",
 })
 
 -- ######################

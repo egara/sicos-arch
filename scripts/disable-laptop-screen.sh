@@ -20,17 +20,14 @@ if [[ "$output" == "HDMI-"* ] || [ "$output" == "DP-"* ]]; then
     echo "Lip is closed. Disabling laptop screen" | systemd-cat -p info
   fi
 
-  # Checking if waybar has crashed
-  echo "Checking if waybar has crashed" | systemd-cat -p info
+  # Checking if shell has crashed
+  echo "Checking if shell has crashed" | systemd-cat -p info
   sleep 3
-  waybarActive=$(ps -A | grep waybar | wc -l)
-
-  if [ "$waybarActive" -gt 0 ]
-  then 
-    echo "waybar is OK. waybarActive = $waybarActive. Skipping..." | systemd-cat -p info
+  if pgrep -x waybar >/dev/null || systemctl --user is-active --quiet dms.service || pgrep -x dms >/dev/null; then
+    echo "Shell is OK. Skipping..." | systemd-cat -p info
   else
-    echo "waybar has crashed. waybarActive = $waybarActive. Enabling it again" | systemd-cat -p info
-    uwsm app -- waybar &
+    echo "Shell has crashed. Restarting shell..." | systemd-cat -p info
+    uwsm app -- ~/.config/sicos/scripts/start-shell.sh &
   fi  
 else
     echo "No external monitor HDMI-* has been detected. Type hyprctl monitors to see active monitors and modify this script." | systemd-cat -p info

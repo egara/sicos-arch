@@ -5,7 +5,7 @@
 # This script migrates your NixOS SicOS configuration
 # to a CachyOS/Arch Linux system.
 #
-# Author: Gemini CLI (based on Eloy García's config)
+# Author: Eloy García Almadén / Gemini CLI
 # --------------------------------------------------
 
 set -e
@@ -24,6 +24,42 @@ echo "/____/_/\___/\____/ /____/  "
 echo "    Setup for CachyOS       "
 echo ""
 
+# --- Command-line arguments & Shell Choice ---
+SHELL_CHOICE=""
+
+for arg in "$@"; do
+    case $arg in
+        --shell=waybar)
+            SHELL_CHOICE="waybar"
+            shift
+            ;;
+        --shell=dms|--shell=dank-material-shell)
+            SHELL_CHOICE="dank-material-shell"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$SHELL_CHOICE" ]; then
+    echo "------------------------------------------"
+    echo " Choose your preferred desktop bar/shell: "
+    echo " 1) DankMaterialShell (DMS) [Default]"
+    echo " 2) Waybar + SwayNC"
+    echo "------------------------------------------"
+    read -r -p "Enter choice [1/2, default: 1]: " user_choice
+    case "$user_choice" in
+        2)
+            SHELL_CHOICE="waybar"
+            ;;
+        *)
+            SHELL_CHOICE="dank-material-shell"
+            ;;
+    esac
+fi
+
+echo "Selected desktop shell option: $SHELL_CHOICE"
+echo ""
+
 # 1. Install Dependencies
 echo "[1/7] Installing dependencies..."
 
@@ -40,25 +76,31 @@ else
     AUR_HELPER="paru"
 fi
 
-# Package list based on SicOS NixOS module (Restored user version + sqlite + gtk themes + Reddit fixes)
+# Package list based on SicOS NixOS module (Migrated to GTK apps & DMS/Waybar options)
 PACKAGES=(
-    # Desktop Environment
+    # Desktop Environment & Shells
     hyprland
     hypridle
     hyprlock
     waybar
     swaync
+    dms-shell-hyprland
+    quickshell
+    cava
+    matugen
+    gnome-menus
+    upower
+    accountsservice
     wlogout
     walker
     elephant-all
     uwsm
     swww
     sqlite
-    # File Manager & Tools
+    # File Manager & GTK Tools (Migrated from Thunar to Nautilus)
     kitty
-    thunar
-    thunar-archive-plugin
-    thunar-volman
+    nautilus
+    file-roller
     gvfs
     tumbler
     brightnessctl
@@ -66,7 +108,7 @@ PACKAGES=(
     playerctl
     network-manager-applet
     blueman
-    lxqt-policykit
+    polkit-gnome
     udiskie
     hyprshot
     satty
@@ -78,7 +120,6 @@ PACKAGES=(
     wl-clipboard
     grim
     slurp
-    vlc
     chromium
     papers
     yay
@@ -102,14 +143,15 @@ PACKAGES=(
     noto-fonts-emoji
     noto-fonts-cjk
     nerd-fonts
-    # Audio
-    carla
+    # Audio (Helvum replacing Carla; PipeWire replacing VLC for pop sound)
+    helvum
     calf
     jack_mixer
     audacity
     qmmp
     mixxx
     spotify
+    pipewire
     pipewire-jack
     # AI
     opencode
@@ -164,12 +206,17 @@ mkdir -p "$USER_HOME/.config/qt5ct"
 mkdir -p "$USER_HOME/.config/qt6ct"
 mkdir -p "$USER_HOME/.config/Kvantum"
 mkdir -p "$USER_HOME/.config/qmmp"
+mkdir -p "$USER_HOME/.config/DankMaterialShell"
+mkdir -p "$USER_HOME/.local/state/DankMaterialShell"
 mkdir -p "$SICOS_CONF_DIR/scripts"
 mkdir -p "$SICOS_CONF_DIR/wallpapers"
 mkdir -p "$SICOS_CONF_DIR/themes"
 mkdir -p "$SICOS_CONF_DIR/screensaver"
 
-# 3. Copy Configuration Files (Restored user paths)
+# Save chosen shell preference
+echo "$SHELL_CHOICE" > "$SICOS_CONF_DIR/shell_choice"
+
+# 3. Copy Configuration Files
 echo "[3/7] Copying configuration files..."
 
 # Hyprland & core configs
@@ -211,16 +258,16 @@ cp -r "$REPO_ROOT/config-files/qmmp/"* "$USER_HOME/.config/qmmp/"
 cp -r "$REPO_ROOT/config-files/mimeapps.list"* "$USER_HOME/.config/mimeapps.list"
 
 # Yazi
-ya pkg add jaam8/wise-enter
-ya pkg add yazi-rs/plugins:mount
+ya pkg add jaam8/wise-enter || true
+ya pkg add yazi-rs/plugins:mount || true
 
 cp -r "$REPO_ROOT/config-files/yazi/"* "$USER_HOME/.config/yazi/"
 
 # Scripts
 cp "$REPO_ROOT/scripts/"* "$SICOS_CONF_DIR/scripts/"
 
-# 4. Supplemental Assets (Themes, Wallpapers, Screensaver from modules)
-echo "[4/7] Supplementing missing assets from NixOS modules..."
+# 4. Supplemental Assets
+echo "[4/7] Supplementing missing assets..."
 cp -r "$REPO_ROOT/wallpapers/"* "$SICOS_CONF_DIR/wallpapers/"
 cp -r "$REPO_ROOT/screensaver/"* "$SICOS_CONF_DIR/screensaver/"
 
@@ -229,7 +276,7 @@ echo "Installing SDDM theme..."
 sudo mkdir -p /usr/share/sddm/themes/sicos
 sudo cp "$REPO_ROOT/sddm-theme/metadata.desktop" /usr/share/sddm/themes/sicos/
 sudo cp "$REPO_ROOT/sddm-theme/theme.conf" /usr/share/sddm/themes/sicos/
-# Select Main.qml based on theme preference (defaulting to dark as per script logic)
+# Select Main.qml based on theme preference
 sudo cp "$REPO_ROOT/sddm-theme/Main-dark.qml" /usr/share/sddm/themes/sicos/Main.qml
 
 # Configure SDDM to use the theme
@@ -244,12 +291,16 @@ EOF"
 echo "Cleaning SDDM cache..."
 sudo rm -rf /var/lib/sddm/.cache
 
-# 5. Fix Paths and Commands
+# 5. Fix Paths, Executability and Commands
 echo "[5/7] Customizing configurations for the new environment..."
 
 # Replace hardcoded home paths /home/egarcia with current $HOME
 echo "Fixing hardcoded home paths..."
 find "$USER_HOME/.config" -type f -not -path '*/.*' -exec sed -i "s|/home/egarcia|$USER_HOME|g" {} +
+
+# Polkit agent symlink for PATH availability
+echo "Creating polkit-gnome agent symlink..."
+sudo ln -sf /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 /usr/bin/polkit-gnome-authentication-agent-1
 
 # Handle awww vs swww
 echo "Aliasing awww to swww for compatibility..."
@@ -269,7 +320,7 @@ gtk-theme-name=adw-gtk3
 EOF
 cp "$USER_HOME/.config/gtk-3.0/settings.ini" "$USER_HOME/.config/gtk-4.0/settings.ini"
 
-# Force Adwaita-dark in GTK4 via CSS import (Arch path)
+# Force Adwaita-dark in GTK4 via CSS import
 cat << 'EOF' > "$USER_HOME/.config/gtk-4.0/gtk.css"
 /**
  * GTK 4 reads the theme configured by gtk-theme-name, but ignores it.
@@ -295,7 +346,7 @@ cat << 'EOF' > "$USER_HOME/.config/Kvantum/kvantum.kvconfig"
 theme=KvFlatDark
 EOF
 
-# Force Dark Mode for KDE apps (Okular, Dolphin, etc.)
+# Force Dark Mode for KDE apps
 echo "Configuring KDE apps dark mode (kdeglobals)..."
 cat << 'EOF' > "$USER_HOME/.config/kdeglobals"
 [General]
@@ -327,7 +378,7 @@ if command -v gsettings >/dev/null 2>&1; then
     gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" || true
 fi
 
-# Set Environment Variables for the session (Reddit/Arch definitive fix)
+# Set Environment Variables for session
 echo "Setting environment variables..."
 sudo mkdir -p /etc/environment.d
 sudo bash -c "cat << 'EOF' > /etc/environment.d/99-sicos.conf
@@ -336,21 +387,6 @@ QT_STYLE_OVERRIDE=kvantum
 XCURSOR_THEME=Bibata-Modern-Classic
 XCURSOR_SIZE=24
 EOF"
-
-# Force environment variable in hyprland.conf to bypass overrides
-echo "Forcing QT_QPA_PLATFORMTHEME in hyprland.conf..."
-if [ -f "$HYPR_CONF_DIR/hyprland.conf" ]; then
-    # Uncomment if exists
-    sed -i 's/^#env = QT_QPA_PLATFORMTHEME,qt6ct/env = QT_QPA_PLATFORMTHEME,qt6ct/' "$HYPR_CONF_DIR/hyprland.conf"
-    # Ensure it's present and set correctly
-    if ! grep -q "env = QT_QPA_PLATFORMTHEME,qt6ct" "$HYPR_CONF_DIR/hyprland.conf"; then
-        echo "env = QT_QPA_PLATFORMTHEME,qt6ct" >> "$HYPR_CONF_DIR/hyprland.conf"
-    fi
-    # Also set override for good measure
-    if ! grep -q "env = QT_STYLE_OVERRIDE,kvantum" "$HYPR_CONF_DIR/hyprland.conf"; then
-        echo "env = QT_STYLE_OVERRIDE,kvantum" >> "$HYPR_CONF_DIR/hyprland.conf"
-    fi
-fi
 
 # Install Insync integration script to /usr/bin
 echo "Installing Insync integration script to /usr/bin..."
@@ -378,19 +414,28 @@ EOF
 echo "[6/7] Setting executable permissions on scripts..."
 chmod +x "$SICOS_CONF_DIR/scripts/"*.sh
 
-# 7. Final Setup
-echo "[7/7] Finalizing..."
+# 7. Final Setup & Services
+echo "[7/7] Finalizing services..."
 
-# Enable docker socket and add user to group
+# Enable system services
+sudo systemctl enable --now upower.service || true
+sudo systemctl enable --now accounts-daemon.service || true
+
+# Enable Docker
 echo "Configuring Docker..."
-sudo systemctl enable --now docker.socket
-sudo usermod -aG docker "$USER"
-echo "Note: You will need to log out and back in for docker group changes to take effect."
+sudo systemctl enable --now docker.socket || true
+sudo usermod -aG docker "$USER" || true
 
-# Enable hypridle service if not already enabled
+# Enable hypridle service
 systemctl --user enable --now hypridle.service || true
 
-# Enable SDDM service if not already enabled
+# Enable DMS user service if selected
+if [ "$SHELL_CHOICE" = "dank-material-shell" ]; then
+    echo "Enabling DankMaterialShell user service..."
+    systemctl --user enable dms.service || true
+fi
+
+# Enable SDDM service
 echo "Enabling SDDM..."
 sudo systemctl enable sddm || true
 
@@ -398,21 +443,12 @@ sudo systemctl enable sddm || true
 swww-daemon & sleep 1
 swww img "$SICOS_CONF_DIR/wallpapers/sicos-dark.jpg" || true
 
-# Setting the default audio card
-wpctl status
-wpctl set-default 169
-
-echo "The default audio card is the sink with ID = 169. Please, modify it if it is another one"
-
 echo ""
 echo "--------------------------------------------------"
 echo " SicOS Setup Complete!"
+echo " Selected Shell: $SHELL_CHOICE"
 echo "--------------------------------------------------"
 echo " To start SicOS:"
 echo " 1. Logout and select Hyprland (UWSM) in your DM."
 echo " 2. Or run: uwsm start hyprland-uwsm.desktop"
-echo ""
-echo " Note: theme-switcher.sh is NixOS-centric and will"
-echo " not function for system rebuilds on Arch, but UI"
-echo " restarts within it should still work."
 echo "--------------------------------------------------"
