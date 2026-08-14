@@ -23,9 +23,6 @@ hl.on("hyprland.start", function ()
     -- Initial brightness at 55%
     hl.exec_cmd("uwsm app -- brightnessctl s 55%")
 
-    -- Kanshi (Multi monitor layout manager)
-    hl.exec_cmd("uwsm app -- kanshi")
-
     -- Screensaver (IDLE)
     hl.exec_cmd("systemctl --user enable --now hypridle.service")
     -- hl.exec_cmd("swayidle -w timeout 300 '$lock' timeout 300 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep '$lock'")
