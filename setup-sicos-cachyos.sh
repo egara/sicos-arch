@@ -97,7 +97,7 @@ PACKAGES=(
     uwsm
     swww
     sqlite
-    # File Manager & GTK Tools (Migrated from Thunar to Nautilus)
+    # File Manager & GTK Tools
     kitty
     nautilus
     file-roller
@@ -143,7 +143,7 @@ PACKAGES=(
     noto-fonts-emoji
     noto-fonts-cjk
     nerd-fonts
-    # Audio (Helvum replacing Carla; PipeWire replacing VLC for pop sound)
+    # Audio
     helvum
     calf
     jack_mixer
@@ -180,6 +180,8 @@ PACKAGES=(
     unarchiver
     7zip
     keepassxc
+    google-chrome
+    gst-plugins-good
     # Docker
     docker docker-compose docker-buildx
     # SDDM Theme dependencies
