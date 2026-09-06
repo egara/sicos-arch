@@ -1,0 +1,81 @@
+[[mgr.prepend_keymap]]
+desc = "Close the current tab or quit it it's last"
+on = "<C-w>"
+run = "close"
+
+[[mgr.prepend_keymap]]
+desc = "Open Thunar in the current directory"
+on = "<S-e>"
+run = "shell 'thunar \"$YAZI_CWD\"' --orphan"
+
+[[mgr.prepend_keymap]]
+desc = "Open kitty terminal here"
+on = "<S-t>"
+run = "shell 'kitty --directory \"$YAZI_CWD\"' --orphan"
+
+[[mgr.prepend_keymap]]
+desc = "Maximize or restore the preview pane"
+on = "T"
+run = "plugin toggle-pane max-preview"
+
+[[mgr.prepend_keymap]]
+desc = "Mount and manage USB devices"
+on = "M"
+run = "plugin mount"
+
+[[mgr.prepend_keymap]]
+desc = "USB"
+on = ["g", "u"]
+run = "cd /run/media/egarcia"
+
+[[mgr.prepend_keymap]]
+desc = "Copy a file both in system and yazi clipboard"
+for = "unix"
+on = "<C-c>"
+run = ["shell -- for path in \"$@\"; do echo \"file://$path\"; done | wl-copy -t text/uri-list", "yank"]
+
+[[mgr.prepend_keymap]]
+desc = "Cut a file"
+on = "<C-x>"
+run = "yank --cut"
+
+[[mgr.prepend_keymap]]
+desc = "Paste a file"
+on = "<C-v>"
+run = "paste"
+
+[[mgr.prepend_keymap]]
+desc = "Open $SHELL here"
+for = "unix"
+on = "!"
+run = ["shell \"$SHELL\" --block"]
+
+[[mgr.prepend_keymap]]
+desc = "Rename a file"
+on = "<F2>"
+run = "rename"
+
+[[mgr.prepend_keymap]]
+desc = "Search files (fd)"
+on = "<C-f>"
+run = "search --via=fd"
+
+[[mgr.prepend_keymap]]
+desc = "Search files by content (ripgrep)"
+on = "<S-f>"
+run = "search --via=rg"
+
+[[mgr.prepend_keymap]]
+desc = "Enter the child directory, or open the file"
+on = "<Enter>"
+run = "plugin smart-enter"
+
+[[mgr.prepend_keymap]]
+desc = "Move to trash"
+on = "<Delete>"
+run = "trash"
+
+[[mgr.prepend_keymap]]
+desc = "Delete permanently"
+on = "<S-Delete>"
+run = "remove"
