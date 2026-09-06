@@ -8,6 +8,20 @@
 -- =============================================================================
 
 -- ==========================================
+-- 0. AJUSTES DE FOCO Y CURSOR
+-- ==========================================
+-- Evitar que el foco vuelva a la ventana inicial al mover el foco con teclado
+hl.config({
+    cursor = {
+        no_warps = false,
+        warp_on_focus = 1,
+    },
+    misc = {
+        mouse_refocus = false,
+    },
+})
+
+-- ==========================================
 -- 1. APLICACIONES PRINCIPALES
 -- ==========================================
 

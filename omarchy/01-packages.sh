@@ -67,6 +67,7 @@ SICOS_PKGS=(
     playerctl
     
     # Productividad / Herramientas
+    keepassxc
     lazyssh-bin
     fastfetch
     yadm
