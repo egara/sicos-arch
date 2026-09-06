@@ -96,11 +96,11 @@ drop_package() {
     fi
 }
 
-# --- Paso 1: Desinstalar paquetes no deseados ---
-echo "--- Desinstalando aplicaciones innecesarias de Omarchy ---"
-for pkg in "${OMARCHY_DROP_PKGS[@]}"; do
-    drop_package "$pkg"
-done
+# --- Paso 1: Desinstalar paquetes no deseados (Comentado temporalmente) ---
+# echo "--- Desinstalando aplicaciones innecesarias de Omarchy ---"
+# for pkg in "${OMARCHY_DROP_PKGS[@]}"; do
+#     drop_package "$pkg"
+# done
 
 # --- Paso 2: Instalar paquetes uno a uno de forma resiliente ---
 echo "--- Instalando aplicaciones de SicOS con $AUR_HELPER ---"
