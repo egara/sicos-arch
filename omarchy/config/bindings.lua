@@ -8,16 +8,16 @@
 -- =============================================================================
 
 -- ==========================================
--- 0. AJUSTES DE FOCO Y CURSOR
+-- 0. AJUSTES DE FOCO Y RATÓN
 -- ==========================================
--- Evitar que el foco vuelva a la ventana inicial al mover el foco con teclado
+-- follow_mouse = 2 desacopla el foco del teclado del cursor estático del ratón,
+-- impidiendo que el ratón robe el foco al cambiar de ventana con Super + Flechas.
 hl.config({
+    input = {
+        follow_mouse = 2,
+    },
     cursor = {
         no_warps = false,
-        warp_on_focus = 1,
-    },
-    misc = {
-        mouse_refocus = false,
     },
 })
 
