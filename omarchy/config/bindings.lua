@@ -54,7 +54,6 @@ o.bind("SUPER + G", "Gemini AI", "uwsm app -- google-chrome-stable --app='https:
 o.bind("SUPER + C", "Lazyssh", "uwsm app -- kitty --override term=xterm-256color -e lazyssh")
 
 -- Menú / Lanzador de aplicaciones (SUPER / Walker o Menú de Omarchy)
--- Si Walker está instalado, SUPER_L lo abre; de lo contrario SUPER+SPACE abre el menú Omarchy
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("walker || omarchy-menu toggle"), { description = "Lanzador de Aplicaciones" })
 
 -- ==========================================

@@ -7,8 +7,7 @@ Este directorio contiene los scripts y configuraciones necesarios para transform
 ## 🎯 ¿Qué hace este instalador?
 
 1. **Gestión de paquetes (`01-packages.sh`)**:
-   - **Desinstala aplicaciones innecesarias de Omarchy**: `foot`, `evince`, `imv`, `pinta`, `xournalpp`, `cliamp`, `tobi-try` (usando `omarchy-pkg-drop` o pacman).
-   - **Instala las aplicaciones de SicOS**: `kitty`, `zed`, `firefox`, `google-chrome`, `yazi`, `qmmp`, `vlc`, `papers`, `feh`, `hyprshot`, `satty`, `lazyssh-bin`, `insync`, `buttermanager`, `opencode`, `antigravity-cli`, etc.
+   - **Instala las aplicaciones de SicOS**: `kitty`, `zed`, `firefox`, `google-chrome`, `yazi`, `qmmp`, `vlc`, `papers`, `feh`, `hyprshot`, `satty`, `lazyssh-bin`, `insync`, `buttermanager`, `opencode-bin`, `antigravity-cli`, etc.
 2. **Aplicaciones por defecto (`02-default-apps.sh`)**:
    - Establece **Kitty** como emulador de terminal predeterminado mediante `omarchy-default-terminal kitty` (`~/.config/xdg-terminals.list`).
    - Establece **Firefox** como navegador por defecto.
@@ -22,7 +21,7 @@ Este directorio contiene los scripts y configuraciones necesarios para transform
 
 ## 🚀 Uso
 
-En el sistema Omarchy recién instalado, ejecuta:
+En el sistema Omarchy, ejecuta:
 
 ```bash
 cd omarchy
