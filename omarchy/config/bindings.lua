@@ -81,17 +81,25 @@ o.bind("SUPER + CTRL + UP", "Pantalla Completa", hl.dsp.window.fullscreen({ mode
 hl.bind("SUPER + KP_Multiply", hl.dsp.window.pseudo(), { description = "Pseudo Ventana" })
 hl.bind("SUPER + KP_Divide", hl.dsp.layout("togglesplit"), { description = "Cambiar Split de Ventana" })
 
--- Redimensionar Ventanas con SUPER + ALT + Flechas
-hl.bind("SUPER + ALT + Right", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true, description = "Redimensionar Derecha" })
-hl.bind("SUPER + ALT + Left", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true, description = "Redimensionar Izquierda" })
-hl.bind("SUPER + ALT + Up", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true, description = "Redimensionar Arriba" })
-hl.bind("SUPER + ALT + Down", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true, description = "Redimensionar Abajo" })
+-- Redimensionar Ventanas con SUPER + ALT + Flechas (desvinculando primero de grupos de Omarchy)
+hl.unbind("SUPER + ALT + LEFT")
+hl.unbind("SUPER + ALT + RIGHT")
+hl.unbind("SUPER + ALT + UP")
+hl.unbind("SUPER + ALT + DOWN")
+hl.bind("SUPER + ALT + RIGHT", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true, description = "Redimensionar Derecha" })
+hl.bind("SUPER + ALT + LEFT", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true, description = "Redimensionar Izquierda" })
+hl.bind("SUPER + ALT + UP", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true, description = "Redimensionar Arriba" })
+hl.bind("SUPER + ALT + DOWN", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true, description = "Redimensionar Abajo" })
 
--- Mover foco entre ventanas con SUPER + Flechas
-hl.bind("SUPER + Left", hl.dsp.focus({ direction = "l" }), { description = "Mover Foco Izquierda" })
-hl.bind("SUPER + Right", hl.dsp.focus({ direction = "r" }), { description = "Mover Foco Derecha" })
-hl.bind("SUPER + Up", hl.dsp.focus({ direction = "u" }), { description = "Mover Foco Arriba" })
-hl.bind("SUPER + Down", hl.dsp.focus({ direction = "d" }), { description = "Mover Foco Abajo" })
+-- Mover foco entre ventanas con SUPER + Flechas (desvinculando Omarchy para evitar doble ejecución)
+hl.unbind("SUPER + LEFT")
+hl.unbind("SUPER + RIGHT")
+hl.unbind("SUPER + UP")
+hl.unbind("SUPER + DOWN")
+o.bind("SUPER + LEFT", "Mover Foco Izquierda", hl.dsp.focus({ direction = "l" }))
+o.bind("SUPER + RIGHT", "Mover Foco Derecha", hl.dsp.focus({ direction = "r" }))
+o.bind("SUPER + UP", "Mover Foco Arriba", hl.dsp.focus({ direction = "u" }))
+o.bind("SUPER + DOWN", "Mover Foco Abajo", hl.dsp.focus({ direction = "d" }))
 
 -- ==========================================
 -- 3. SUBMAP PARA MOVER VENTANAS (SUPER + RETURN)
