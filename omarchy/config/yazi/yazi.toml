@@ -61,35 +61,35 @@ use = "open"
 [[opener.edit]]
 for = "unix"
 orphan = true
-run = "zeditor \"$@\""
+run = "zeditor %s"
 
 [[opener.firefox]]
 for = "unix"
 orphan = true
-run = "firefox \"$@\""
+run = "firefox %s"
 
 [[opener.image]]
 for = "unix"
 orphan = true
-run = "feh \"$@\""
+run = "feh %s"
 
 [[opener.open]]
 desc = "Open"
 for = "unix"
 orphan = true
-run = "xdg-open \"$@\""
+run = "xdg-open %s"
 
 [[opener.pdf]]
 for = "unix"
 orphan = true
-run = "okular \"$@\""
+run = "okular %s"
 
 [[opener.play]]
 for = "unix"
 orphan = true
-run = "qmmp \"$@\""
+run = "qmmp %s"
 
 [[opener.video]]
 for = "unix"
 orphan = true
-run = "vlc \"$@\""
+run = "vlc %s"
