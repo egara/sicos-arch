@@ -82,7 +82,7 @@ run = "xdg-open %s"
 [[opener.pdf]]
 for = "unix"
 orphan = true
-run = "okular %s"
+run = "papers %s"
 
 [[opener.play]]
 for = "unix"

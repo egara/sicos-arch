@@ -4,14 +4,14 @@ on = "<C-w>"
 run = "close"
 
 [[mgr.prepend_keymap]]
-desc = "Open Thunar in the current directory"
+desc = "Open Nautilus in the current directory"
 on = "<S-e>"
-run = "shell 'thunar \"$YAZI_CWD\"' --orphan"
+run = """shell 'nautilus "$YAZI_CWD"' --orphan"""
 
 [[mgr.prepend_keymap]]
 desc = "Open kitty terminal here"
 on = "<S-t>"
-run = "shell 'kitty --directory \"$YAZI_CWD\"' --orphan"
+run = """shell 'kitty --directory "$YAZI_CWD"' --orphan"""
 
 [[mgr.prepend_keymap]]
 desc = "Maximize or restore the preview pane"
@@ -32,7 +32,7 @@ run = "cd /run/media/egarcia"
 desc = "Copy a file both in system and yazi clipboard"
 for = "unix"
 on = "<C-c>"
-run = ["shell -- for path in \"$@\"; do echo \"file://$path\"; done | wl-copy -t text/uri-list", "yank"]
+run = ['shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank"]
 
 [[mgr.prepend_keymap]]
 desc = "Cut a file"
@@ -48,7 +48,7 @@ run = "paste"
 desc = "Open $SHELL here"
 for = "unix"
 on = "!"
-run = ["shell \"$SHELL\" --block"]
+run = ['shell "$SHELL" --block']
 
 [[mgr.prepend_keymap]]
 desc = "Rename a file"
@@ -66,7 +66,7 @@ on = "<S-f>"
 run = "search --via=rg"
 
 [[mgr.prepend_keymap]]
-desc = "Enter the child directory, open the file or uncompress"
+desc = "Enter the child directory, open the file or uncompress an archive"
 on = "<Enter>"
 run = "plugin wise-enter"
 
