@@ -76,9 +76,10 @@ SICOS_PKGS=(
     insync
     buttermanager
     wallpaperdownloader
+    gdu
     
     # Asistentes IA
-    opencode-bin
+    opencode2-bin
     antigravity-cli
 )
 
