@@ -52,6 +52,7 @@ SICOS_PKGS=(
     # Gestor de archivos y utilidades
     yazi
     unar
+    flea-bin
     
     # Multimedia
     qmmp
