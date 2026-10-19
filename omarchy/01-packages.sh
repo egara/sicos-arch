@@ -78,6 +78,7 @@ SICOS_PKGS=(
     buttermanager
     wallpaperdownloader
     gdu
+    kubie
     
     # Asistentes IA
     opencode2-bin
