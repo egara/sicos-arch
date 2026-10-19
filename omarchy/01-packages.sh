@@ -82,6 +82,7 @@ SICOS_PKGS=(
     # Kubernetes tools
     kubie
     kubecolor
+    k9s
     
     # Asistentes IA
     opencode2-bin
