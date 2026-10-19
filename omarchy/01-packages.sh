@@ -78,7 +78,10 @@ SICOS_PKGS=(
     buttermanager
     wallpaperdownloader
     gdu
+
+    # Kubernetes tools
     kubie
+    kubecolor
     
     # Asistentes IA
     opencode2-bin
